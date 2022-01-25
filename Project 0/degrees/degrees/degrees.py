@@ -1,6 +1,8 @@
 import csv
 import sys
 
+from joblib import PrintTime
+
 from util import Node, StackFrontier, QueueFrontier
 
 # Maps names to a set of corresponding person_ids
@@ -31,6 +33,9 @@ def load_data(directory):
             else:
                 names[row["name"].lower()].add(row["id"])
 
+    # print(names)
+    # print("\n")
+
     # Load movies
     with open(f"{directory}/movies.csv", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -51,11 +56,17 @@ def load_data(directory):
             except KeyError:
                 pass
 
+    # print("PEOPLE")
+    # print(people)
+    # print("\n")
+
+    # print("MOVIES")
+    # print(movies)
 
 def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
-    directory = sys.argv[1] if len(sys.argv) == 2 else "large"
+    directory = sys.argv[1] if len(sys.argv) == 2 else "small"
 
     # Load data from files into memory
     print("Loading data...")
@@ -91,9 +102,14 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    neighbors = neighbors_for_person(source)
+    print(neighbors)
 
-    # TODO
-    raise NotImplementedError
+    neighbors = neighbors_for_person(target)
+    print(neighbors)
+    
+    path = None
+    return path
 
 
 def person_id_for_name(name):
@@ -102,6 +118,7 @@ def person_id_for_name(name):
     resolving ambiguities as needed.
     """
     person_ids = list(names.get(name.lower(), set()))
+    print(person_ids)
     if len(person_ids) == 0:
         return None
     elif len(person_ids) > 1:
