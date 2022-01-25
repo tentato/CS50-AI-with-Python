@@ -2,6 +2,7 @@
 All projects from HarvardX CS50AI - CS50's Introduction to Artificial Intelligence with Python course.
 
 Each folder contains projects from different topics:
+
 Project 0 - Search
 Project 1 -
 Project 2 -
