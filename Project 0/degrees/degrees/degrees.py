@@ -66,7 +66,7 @@ def load_data(directory):
 def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
-    directory = sys.argv[1] if len(sys.argv) == 2 else "small"
+    directory = sys.argv[1] if len(sys.argv) == 2 else "large"
 
     # Load data from files into memory
     print("Loading data...")
@@ -81,6 +81,7 @@ def main():
         sys.exit("Person not found.")
 
     path = shortest_path(source, target)
+    print(path)
 
     if path is None:
         print("Not connected.")
@@ -102,15 +103,38 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    neighbors = neighbors_for_person(source)
-    print(neighbors)
+    path = []
+    node = Node(state=source, parent=None, action=None)
+    frontier = QueueFrontier()
+    frontier.add(node)
 
-    neighbors = neighbors_for_person(target)
-    print(neighbors)
+    explored = set()
+
+    # 2225369,"Jennifer Lawrence",1990
+    # 158,"Tom Hanks",1956
+    # 102,"Kevin Bacon",1958
+
+    while True:
+        if frontier.empty():
+            return None
+        node = frontier.remove()
+        if node.state == target:
+            while node.parent is not None:
+                path.append((node.action, node.state))
+                node = node.parent
+            path.reverse()
+
+            return path
+
+        # Mark node as explored
+        explored.add(node.state)
+
+        # Add neighbors to frontier
+        for action, state in neighbors_for_person(node.state):
+            if not frontier.contains_state(state) and state not in explored:
+                child = Node(state=state, parent=node, action=action)
+                frontier.add(child)
     
-    path = None
-    return path
-
 
 def person_id_for_name(name):
     """
