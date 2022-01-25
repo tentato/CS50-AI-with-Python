@@ -33,9 +33,6 @@ def load_data(directory):
             else:
                 names[row["name"].lower()].add(row["id"])
 
-    # print(names)
-    # print("\n")
-
     # Load movies
     with open(f"{directory}/movies.csv", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -56,12 +53,6 @@ def load_data(directory):
             except KeyError:
                 pass
 
-    # print("PEOPLE")
-    # print(people)
-    # print("\n")
-
-    # print("MOVIES")
-    # print(movies)
 
 def main():
     if len(sys.argv) > 2:
@@ -81,7 +72,7 @@ def main():
         sys.exit("Person not found.")
 
     path = shortest_path(source, target)
-    print(path)
+    # print(path)
 
     if path is None:
         print("Not connected.")
@@ -104,27 +95,23 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
     path = []
+
+    # Keep track of number of states explored
+    num_explored = 0
+
+    # Initialize frontier to just the starting position
     node = Node(state=source, parent=None, action=None)
     frontier = QueueFrontier()
     frontier.add(node)
 
+    # Initialize an empty explored set
     explored = set()
 
-    # 2225369,"Jennifer Lawrence",1990
-    # 158,"Tom Hanks",1956
-    # 102,"Kevin Bacon",1958
-
+    # Looping through Nodes
     while True:
         if frontier.empty():
             return None
         node = frontier.remove()
-        if node.state == target:
-            while node.parent is not None:
-                path.append((node.action, node.state))
-                node = node.parent
-            path.reverse()
-
-            return path
 
         # Mark node as explored
         explored.add(node.state)
@@ -133,6 +120,15 @@ def shortest_path(source, target):
         for action, state in neighbors_for_person(node.state):
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=action)
+
+                # Check if child is the target (improved)
+                if child.state == target:
+                    while child.parent is not None:
+                        path.append((child.action, child.state))
+                        child = child.parent
+                    path.reverse()
+
+                    return path
                 frontier.add(child)
     
 
@@ -142,7 +138,7 @@ def person_id_for_name(name):
     resolving ambiguities as needed.
     """
     person_ids = list(names.get(name.lower(), set()))
-    print(person_ids)
+    # print(person_ids)
     if len(person_ids) == 0:
         return None
     elif len(person_ids) > 1:
