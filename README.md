@@ -4,6 +4,7 @@ All projects from HarvardX CS50AI - CS50's Introduction to Artificial Intelligen
 Each folder contains projects from different topics:
 
 Project 0 - Search:
+
 0.1 - Degrees: Write a program that determines how many “degrees of separation” apart two actors are using provided CSV files.
                    
                                   Output example:
