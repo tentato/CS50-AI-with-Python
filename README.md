@@ -1,9 +1,10 @@
 # CS50-AI-with-Python
 All projects from HarvardX CS50AI - CS50's Introduction to Artificial Intelligence with Python course.
 
-Each folder contains projects from different topics:
+Each folder contains projects from different topics.
 
-Project 0 - Search:
+
+Project 0 - Search
 
 0.1 - Degrees: Write a program that determines how many “degrees of separation” apart two actors are using provided CSV files.
                    
@@ -19,6 +20,7 @@ Project 0 - Search:
     3: Michael Fassbender and Jennifer Lawrence starred in X-Men: First Class
                              
 0.2 - Tic-Tac-Toe: Using Minimax, implement an AI to play Tic-Tac-Toe optimally.
+
 
 Project 1 -
 
