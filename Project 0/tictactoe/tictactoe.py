@@ -2,9 +2,9 @@
 Tic Tac Toe Player
 """
 
+import copy
 import math
-
-from sklearn.preprocessing import PolynomialFeatures
+import random
 
 X = "X"
 O = "O"
@@ -34,14 +34,21 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
-
+    actions = []
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == None:
+                actions.append((i, j))
+    actions = set(actions)
+    return actions
 
 def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    raise NotImplementedError
+    copied_board = copy.deepcopy(board)
+
+    return copied_board
 
 
 def winner(board):
@@ -69,4 +76,7 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    first_moves = [(0, 0), (2, 2), (2, 0), (0, 2)]
+    if board == initial_state():
+        move = first_moves[random.randint(0, 3)]
+    return move
