@@ -4,6 +4,8 @@ Tic Tac Toe Player
 
 import math
 
+from sklearn.preprocessing import PolynomialFeatures
+
 X = "X"
 O = "O"
 EMPTY = None
@@ -22,7 +24,10 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    raise NotImplementedError
+    if board == initial_state():
+        player = "X"
+
+    return player
 
 
 def actions(board):
@@ -50,7 +55,7 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    return False
 
 
 def utility(board):
