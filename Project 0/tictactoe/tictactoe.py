@@ -25,9 +25,11 @@ def player(board):
     Returns player who has the next turn on a board.
     """
     if board == initial_state():
-        player = "X"
-
-    return player
+        return X
+    if len(actions(board)) % 2 == 1:
+        return X
+    else:
+        return O
 
 
 def actions(board):
@@ -42,11 +44,14 @@ def actions(board):
     actions = set(actions)
     return actions
 
+
 def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    plr = player(board)
     copied_board = copy.deepcopy(board)
+    copied_board[action[0]][action[1]] = plr
 
     return copied_board
 
@@ -76,6 +81,7 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    moves = actions(board)
     first_moves = [(0, 0), (2, 2), (2, 0), (0, 2)]
     if board == initial_state():
         move = first_moves[random.randint(0, 3)]
