@@ -57,7 +57,11 @@ def result(board, action):
     """
     plr = player(board)
     copied_board = copy.deepcopy(board)
-    copied_board[action[0]][action[1]] = plr
+    # print(board)
+    # print(copied_board)
+    # print(action[0], " test ", action[1])
+    i, j = action[0], action[1]
+    copied_board[i][j] = plr
 
     return copied_board
 
@@ -168,11 +172,10 @@ def minimax(board):
         move = first_moves[random.randint(0, 3)]
         return move
 
-    moves = actions(board)
-    
+    value = max_value(board)
 
-    
-    # return move
+    # print(value)
+    return value
 
 
 def min_value(board):
@@ -182,7 +185,7 @@ def min_value(board):
     if terminal(board):
         return utility(board)
         
-    value = +INFINITY
+    value = 2
 
     for action in actions(board):
         value = max(value, max_value(result(board, action)))
@@ -196,7 +199,7 @@ def max_value(board):
     if terminal(board):
         return utility(board)
 
-    value = -INFINITY
+    value = -2
 
     for action in actions(board):
         value = max(value, min_value(result(board, action)))
