@@ -17,13 +17,13 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    # return [[EMPTY, EMPTY, EMPTY],
-    #         [EMPTY, EMPTY, EMPTY],
-    #         [EMPTY, EMPTY, EMPTY]]
+    return [[EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]]
     
-    return [["O", "x", "X"],
-            ["x", "O", "X"],
-            ["O", "O", EMPTY]]
+    # return [["O", "x", "X"],
+    #         ["x", "O", "X"],
+    #         ["O", "O", EMPTY]]
 
 
 def player(board):
@@ -162,11 +162,13 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    moves = actions(board)
+    # to ensure best first step with no effort
     if board == initial_state():
         first_moves = [(0, 0), (2, 2), (2, 0), (0, 2)]
         move = first_moves[random.randint(0, 3)]
         return move
+
+    moves = actions(board)
     
 
     
