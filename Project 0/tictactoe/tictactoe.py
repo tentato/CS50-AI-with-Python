@@ -17,9 +17,13 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    # return [[EMPTY, EMPTY, EMPTY],
+    #         [EMPTY, EMPTY, EMPTY],
+    #         [EMPTY, EMPTY, EMPTY]]
+    
+    return [["O", "x", "X"],
+            ["x", "O", "X"],
+            ["O", "O", EMPTY]]
 
 
 def player(board):
@@ -62,7 +66,33 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    # check ROWS
+    for i in range(3):
+        if board[i][0] == board[i][1] == board[i][2] == X:
+            return X
+        elif board[i][0] == board[i][1] == board[i][2] == O:
+            return O
+
+    # check COLUMNS
+    for j in range(3):
+        if board[0][j] == board[1][j] == board[2][j] == X:
+            return X
+        elif board[0][j] == board[1][j] == board[2][j] == O:
+            return O
+
+    # check diagonal
+    if board[0][0] == board[1][1] == board[2][2] == X:
+        return X
+    elif board[0][0] == board[1][1] == board[2][2] == O:
+        return O
+
+    # check second diagonal
+    if board[0][2] == board[1][1] == board[2][0] == X:
+        return X
+    elif board[0][2] == board[1][1] == board[2][0] == O:
+        return O
+
+    return None
 
 
 def terminal(board):
