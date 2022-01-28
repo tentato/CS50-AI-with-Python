@@ -3,7 +3,9 @@ Tic Tac Toe Player
 """
 
 import copy
+from json.encoder import INFINITY
 import math
+from pickle import FALSE
 import random
 
 X = "X"
@@ -67,6 +69,58 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
+    # check ROWS
+    # for i in range(3):
+    #     if board[i][0] == board[i][1] == board[i][2] == X:
+
+
+    # for i in range(3):
+    #     sum = 0
+    #     for j in range(3):
+    #         if board[i][j] == "X":
+    #             sum += 1
+    #         elif board[i][j] == "O":
+    #             sum -= 1
+
+    #     if sum == 3 or sum == -3:
+    #         return True
+
+
+    # # check COLUMNS
+    # for i in range(3):
+    #     sum = 0
+    #     for j in range(3):
+    #         if board[j][i] == "X":
+    #             sum += 1
+    #         elif board[j][i] == "O":
+    #             sum -= 1
+
+    #     if sum == 3 or sum == -3:
+    #         return True
+
+    # # check diagonal
+    # if board[0][0] == 
+    # if sum == 3 or sum == -3:
+
+    # # check anti-diagonal    
+    # sum = table_array[0, 2] + table_array[1, 1] + table_array[2, 0]
+    # if sum == 3:
+    #     result = "X wins"
+    #     finished = True
+    #     p1 = (100, 500)
+    #     p2 = (500, 100)
+    # elif sum == -3:
+    #     result = "O wins"
+    #     finished = True
+    #     p1 = (100, 500)
+    #     p2 = (500, 100)
+
+    # for i in range(3):
+    #     for j in range(3):
+    #         if board[i][j] == None:
+    #             return False
+
+    # return True
     return False
 
 
@@ -74,7 +128,8 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
+    print("Game over")
+    return 1
 
 
 def minimax(board):
@@ -82,7 +137,39 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     moves = actions(board)
-    first_moves = [(0, 0), (2, 2), (2, 0), (0, 2)]
     if board == initial_state():
+        first_moves = [(0, 0), (2, 2), (2, 0), (0, 2)]
         move = first_moves[random.randint(0, 3)]
+        return move
+    
+
+    
     return move
+
+
+def min_value(board):
+    """
+    Returns the min value for a current board.
+    """
+    if terminal(board):
+        return utility(board)
+        
+    value = +INFINITY
+
+    for action in actions(board):
+        value = max(value, max_value(result(board, action)))
+    return value
+
+
+def max_value(board):
+    """
+    Returns the max value for a current board.
+    """
+    if terminal(board):
+        return utility(board)
+
+    value = -INFINITY
+
+    for action in actions(board):
+        value = max(value, min_value(result(board, action)))
+    return value
