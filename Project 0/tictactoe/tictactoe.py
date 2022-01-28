@@ -99,8 +99,33 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    print("Game over")
-    return 1
+    # check ROWS
+    for i in range(3):
+        if board[i][0] == board[i][1] == board[i][2] == X:
+            return 1
+        elif board[i][0] == board[i][1] == board[i][2] == O:
+            return -1
+
+    # check COLUMNS
+    for j in range(3):
+        if board[0][j] == board[1][j] == board[2][j] == X:
+            return 1
+        elif board[0][j] == board[1][j] == board[2][j] == O:
+            return -1
+
+    # check diagonal
+    if board[0][0] == board[1][1] == board[2][2] == X:
+        return 1
+    elif board[0][0] == board[1][1] == board[2][2] == O:
+        return -1
+
+    # check second diagonal
+    if board[0][2] == board[1][1] == board[2][0] == X:
+        return 1
+    elif board[0][2] == board[1][1] == board[2][0] == O:
+        return -1
+
+    return 0
 
 
 def minimax(board):
