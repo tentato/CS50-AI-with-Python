@@ -172,15 +172,23 @@ def minimax(board):
         move = first_moves[random.randint(0, 3)]
         return move
 
-    value = max_value(board)
+    val = -2
+    action_to_make = None
+    all_actions = actions(board)
+
+    for action in all_actions:
+        value = max_value(result(board, action))
+        if val < value:
+            val = value
+            action_to_make = action
 
     # print(value)
-    return value
+    return action_to_make
 
 
 def min_value(board):
     """
-    Returns the min value for a current board.
+    Returns the min value for the current board.
     """
     if terminal(board):
         return utility(board)
@@ -194,7 +202,7 @@ def min_value(board):
 
 def max_value(board):
     """
-    Returns the max value for a current board.
+    Returns the max value for the current board.
     """
     if terminal(board):
         return utility(board)
