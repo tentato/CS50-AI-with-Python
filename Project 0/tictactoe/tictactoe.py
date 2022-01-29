@@ -21,9 +21,9 @@ def initial_state():
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY]]
 
-    return [[EMPTY, "X", "O"],
-            ["O", "X", EMPTY],
-            ["X", EMPTY, "O"]]
+    # return [[EMPTY, "X", "O"],
+    #         ["O", "X", EMPTY],
+    #         ["X", EMPTY, "O"]]
     
 
 def player(board):
