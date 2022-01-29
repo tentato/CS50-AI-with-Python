@@ -20,11 +20,11 @@ def initial_state():
     return [[EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY]]
-    
-    # return [["O", "x", "X"],
-    #         ["x", "O", "X"],
-    #         ["O", "O", EMPTY]]
 
+    return [[EMPTY, "X", "O"],
+            ["O", "X", EMPTY],
+            ["X", EMPTY, "O"]]
+    
 
 def player(board):
     """
@@ -57,9 +57,6 @@ def result(board, action):
     """
     plr = player(board)
     copied_board = copy.deepcopy(board)
-    # print(board)
-    # print(copied_board)
-    # print(action[0], " test ", action[1])
     i, j = action[0], action[1]
     copied_board[i][j] = plr
 
@@ -172,17 +169,27 @@ def minimax(board):
         move = first_moves[random.randint(0, 3)]
         return move
 
-    val = -2
     action_to_make = None
-    all_actions = actions(board)
+    plr = player(board)
 
-    for action in all_actions:
-        value = max_value(result(board, action))
-        if val < value:
-            val = value
-            action_to_make = action
+    if plr == X:
+        val = -2
+        for action in actions(board):
+            value = min_value(result(board, action))
+            if val < value:
+                val = value
+                action_to_make = action
+    else:
+        val = 2
+        for action in actions(board):
+            print(action)
+            value = max_value(result(board, action))
+            print(value)
+            if val > value:
+                val = value
+                action_to_make = action
 
-    print(val)
+    # print(val)
     # print(val)
     return action_to_make
 
