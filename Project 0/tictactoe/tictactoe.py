@@ -182,7 +182,8 @@ def minimax(board):
             val = value
             action_to_make = action
 
-    # print(value)
+    print(val)
+    # print(val)
     return action_to_make
 
 
@@ -196,7 +197,7 @@ def min_value(board):
     value = 2
 
     for action in actions(board):
-        value = max(value, max_value(result(board, action)))
+        value = min(value, max_value(result(board, action)))
     return value
 
 
